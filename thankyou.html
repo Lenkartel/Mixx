@@ -1,0 +1,382 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+
+<title>Thank You — Ecocash</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{
+box-sizing:border-box;
+-webkit-tap-highlight-color:transparent;
+}
+
+html,body{
+height:100%;
+margin:0;
+font-family:"Plus Jakarta Sans",system-ui;
+}
+
+/* ECONET BLUE BACKGROUND */
+
+body{
+
+background:
+linear-gradient(180deg,#e6f0ff,#cfe0ff);
+
+display:flex;
+align-items:center;
+justify-content:center;
+
+padding:20px;
+
+overflow:hidden;
+
+}
+
+/* BLUE WAVES */
+
+.wave{
+
+position:fixed;
+
+width:650px;
+height:650px;
+
+border-radius:50%;
+
+background:
+radial-gradient(circle,
+rgba(0,58,143,.18),
+transparent 70%);
+
+filter:blur(45px);
+
+animation:float 20s infinite linear;
+
+z-index:-1;
+
+}
+
+.wave.one{
+top:-220px;
+right:-140px;
+}
+
+.wave.two{
+bottom:-220px;
+left:-140px;
+animation-duration:26s;
+}
+
+@keyframes float{
+
+0%{transform:translateY(0)}
+
+50%{transform:translateY(40px)}
+
+100%{transform:translateY(0)}
+
+}
+
+/* CARD */
+
+.card{
+
+width:100%;
+max-width:440px;
+
+background:white;
+
+padding:28px;
+
+border-radius:20px;
+
+box-shadow:
+0 30px 60px rgba(0,0,0,.18);
+
+text-align:center;
+
+}
+
+/* LOGOS */
+
+.logo-row{
+
+display:flex;
+
+justify-content:center;
+
+align-items:center;
+
+gap:16px;
+
+margin-bottom:10px;
+
+}
+
+.logo-row img{
+
+height:48px;
+
+object-fit:contain;
+
+}
+
+/* TITLE */
+
+h2{
+
+margin:6px 0 10px;
+
+font-size:22px;
+
+font-weight:800;
+
+color:#003a8f;
+
+}
+
+/* TEXT */
+
+p{
+
+font-size:14px;
+
+color:#444;
+
+margin-bottom:18px;
+
+}
+
+/* DETAILS */
+
+.details{
+
+background:#f7f9ff;
+
+padding:16px;
+
+border-radius:14px;
+
+border:1px solid #e5ecff;
+
+text-align:left;
+
+font-size:14px;
+
+margin-bottom:22px;
+
+}
+
+.details strong{
+
+color:#000;
+
+}
+
+.details ul{
+
+margin:8px 0 0 18px;
+
+padding:0;
+
+color:#555;
+
+}
+
+/* BUTTONS */
+
+.btn{
+
+background:#003a8f;
+
+color:#fff;
+
+padding:12px 18px;
+
+border-radius:12px;
+
+border:0;
+
+font-weight:700;
+
+cursor:pointer;
+
+}
+
+.btn.secondary{
+
+background:#eef2ff;
+
+color:#000;
+
+}
+
+.actions{
+
+display:flex;
+
+gap:12px;
+
+justify-content:center;
+
+flex-wrap:wrap;
+
+}
+
+/* FOOTER */
+
+.small{
+
+font-size:12.5px;
+
+color:#666;
+
+margin-top:16px;
+
+}
+
+@media(max-width:420px){
+
+.logo-row img{
+
+height:40px;
+
+}
+
+.card{
+
+padding:22px;
+
+}
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<div class="wave one"></div>
+<div class="wave two"></div>
+
+
+<div class="card">
+
+<div class="logo-row">
+
+<img src="assets/starlink.png" alt="Starlink">
+
+<img src="assets/econet.png" alt="Econet">
+
+</div>
+
+
+<h2>Request received</h2>
+
+<p>
+
+Your Ecocash payment request has been submitted successfully.
+
+</p>
+
+
+<div class="details">
+
+<strong>Plan details</strong>
+
+<div id="planLine" style="margin-top:6px;margin-bottom:6px;"></div>
+
+<ul>
+
+<li>Your number will be registered on the selected plan.</li>
+
+<li>The plan activates once processing is completed.</li>
+
+<li>Econet Wireless will complete this shortly.</li>
+
+</ul>
+
+</div>
+
+
+<div class="actions">
+
+<button class="btn"
+
+onclick="window.location.href='index.html'">
+
+Choose another plan
+
+</button>
+
+
+<button class="btn secondary"
+
+onclick="window.location.href='https://www.google.com'">
+
+Close
+
+</button>
+
+</div>
+
+
+<div class="small">
+
+Ecocash is a service of Econet Wireless.
+
+Terms and conditions apply.
+
+</div>
+
+</div>
+
+
+
+<script>
+
+(function(){
+
+const el=document.getElementById('planLine');
+
+try{
+
+const raw=sessionStorage.getItem('selectedPlan');
+
+if(!raw){
+
+el.textContent='Selected plan: (not available)';
+
+return;
+
+}
+
+const plan=JSON.parse(raw);
+
+el.textContent='Selected plan: '+
+(plan.name||plan.shortName||'');
+
+}
+
+catch(e){
+
+el.textContent='Selected plan: (not available)';
+
+}
+
+})();
+
+</script>
+
+
+</body>
+
+</html>
