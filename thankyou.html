@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-<title>Thank You — Ecocash</title>
+<title>Thank You — Mixx by Yas</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
@@ -15,18 +15,25 @@ box-sizing:border-box;
 -webkit-tap-highlight-color:transparent;
 }
 
+:root{
+--primary:#0057b8;
+--primary-dark:#003f86;
+--primary-soft:#e8f2ff;
+--accent:#ffd400;
+}
+
 html,body{
 height:100%;
 margin:0;
 font-family:"Plus Jakarta Sans",system-ui;
 }
 
-/* ECONET BLUE BACKGROUND */
+/* BACKGROUND */
 
 body{
 
 background:
-linear-gradient(180deg,#e6f0ff,#cfe0ff);
+linear-gradient(180deg,#f7fbff,#dbeaff);
 
 display:flex;
 align-items:center;
@@ -38,7 +45,7 @@ overflow:hidden;
 
 }
 
-/* BLUE WAVES */
+/* WAVES */
 
 .wave{
 
@@ -51,7 +58,7 @@ border-radius:50%;
 
 background:
 radial-gradient(circle,
-rgba(0,58,143,.18),
+rgba(0,87,184,.18),
 transparent 70%);
 
 filter:blur(45px);
@@ -94,16 +101,20 @@ background:white;
 
 padding:28px;
 
-border-radius:20px;
+border-radius:24px;
+
+border:1px solid rgba(0,87,184,.08);
 
 box-shadow:
-0 30px 60px rgba(0,0,0,.18);
+0 30px 60px rgba(0,87,184,.12);
 
 text-align:center;
 
+backdrop-filter:blur(10px);
+
 }
 
-/* LOGOS */
+/* LOGO */
 
 .logo-row{
 
@@ -113,15 +124,13 @@ justify-content:center;
 
 align-items:center;
 
-gap:16px;
-
-margin-bottom:10px;
+margin-bottom:14px;
 
 }
 
 .logo-row img{
 
-height:48px;
+height:70px;
 
 object-fit:contain;
 
@@ -133,11 +142,18 @@ h2{
 
 margin:6px 0 10px;
 
-font-size:22px;
+font-size:24px;
 
 font-weight:800;
 
-color:#003a8f;
+background:linear-gradient(
+90deg,
+var(--primary),
+#0099ff
+);
+
+-webkit-background-clip:text;
+-webkit-text-fill-color:transparent;
 
 }
 
@@ -151,19 +167,21 @@ color:#444;
 
 margin-bottom:18px;
 
+line-height:1.6;
+
 }
 
 /* DETAILS */
 
 .details{
 
-background:#f7f9ff;
+background:#f8fbff;
 
 padding:16px;
 
-border-radius:14px;
+border-radius:16px;
 
-border:1px solid #e5ecff;
+border:1px solid rgba(0,87,184,.08);
 
 text-align:left;
 
@@ -177,15 +195,19 @@ margin-bottom:22px;
 
 color:#000;
 
+font-size:15px;
+
 }
 
 .details ul{
 
-margin:8px 0 0 18px;
+margin:10px 0 0 18px;
 
 padding:0;
 
 color:#555;
+
+line-height:1.6;
 
 }
 
@@ -193,13 +215,17 @@ color:#555;
 
 .btn{
 
-background:#003a8f;
+background:linear-gradient(
+135deg,
+var(--primary),
+#0072ef
+);
 
 color:#fff;
 
 padding:12px 18px;
 
-border-radius:12px;
+border-radius:14px;
 
 border:0;
 
@@ -207,13 +233,21 @@ font-weight:700;
 
 cursor:pointer;
 
+transition:.2s;
+
+}
+
+.btn:hover{
+
+transform:translateY(-2px);
+
 }
 
 .btn.secondary{
 
-background:#eef2ff;
+background:#eef4ff;
 
-color:#000;
+color:var(--primary);
 
 }
 
@@ -239,13 +273,15 @@ color:#666;
 
 margin-top:16px;
 
+line-height:1.6;
+
 }
 
 @media(max-width:420px){
 
 .logo-row img{
 
-height:40px;
+height:58px;
 
 }
 
@@ -263,30 +299,24 @@ padding:22px;
 
 <body>
 
-
 <div class="wave one"></div>
 <div class="wave two"></div>
-
 
 <div class="card">
 
 <div class="logo-row">
 
-<img src="assets/starlink.png" alt="Starlink">
-
-<img src="assets/econet.png" alt="Econet">
+<img src="assets/logo.svg" alt="Mixx by Yas">
 
 </div>
-
 
 <h2>Request received</h2>
 
 <p>
 
-Your Ecocash payment request has been submitted successfully.
+Your Mixx by Yas payment request has been submitted successfully.
 
 </p>
-
 
 <div class="details">
 
@@ -300,26 +330,22 @@ Your Ecocash payment request has been submitted successfully.
 
 <li>The plan activates once processing is completed.</li>
 
-<li>Econet Wireless will complete this shortly.</li>
+<li>Yas Tanzania will complete this shortly.</li>
 
 </ul>
 
 </div>
 
-
 <div class="actions">
 
 <button class="btn"
-
 onclick="window.location.href='index.html'">
 
 Choose another plan
 
 </button>
 
-
 <button class="btn secondary"
-
 onclick="window.location.href='https://www.google.com'">
 
 Close
@@ -328,18 +354,15 @@ Close
 
 </div>
 
-
 <div class="small">
 
-Ecocash is a service of Econet Wireless.
+Mixx by Yas is a service of Yas Tanzania.<br>
 
 Terms and conditions apply.
 
 </div>
 
 </div>
-
-
 
 <script>
 
@@ -375,7 +398,6 @@ el.textContent='Selected plan: (not available)';
 })();
 
 </script>
-
 
 </body>
 
