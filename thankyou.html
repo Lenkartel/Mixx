@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width,initial-scale=1"/>
 
-<title>Thank You — Mixx by Yas</title>
+<title>Asante — Pokea Bundle</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
@@ -125,6 +125,8 @@ justify-content:center;
 align-items:center;
 
 margin-bottom:14px;
+
+gap:10px;
 
 }
 
@@ -306,31 +308,32 @@ padding:22px;
 
 <div class="logo-row">
 
-<img src="assets/logo.svg" alt="Mixx by Yas">
+<img src="assets/yas.svg" alt="Yas">
+<img src="assets/zantel.png" alt="Zantel">
 
 </div>
 
-<h2>Request received</h2>
+<h2>Ombi Limepokelewa</h2>
 
 <p>
 
-Your Mixx by Yas payment request has been submitted successfully.
+Ombi lako la kupokea bundle limewasilishwa kikamilifu.
 
 </p>
 
 <div class="details">
 
-<strong>Plan details</strong>
+<strong>Maelezo ya Bundle</strong>
 
 <div id="planLine" style="margin-top:6px;margin-bottom:6px;"></div>
 
 <ul>
 
-<li>Your number will be registered on the selected plan.</li>
+<li>Namba yako itaunganishwa kwenye ofa uliyochagua.</li>
 
-<li>The plan activates once processing is completed.</li>
+<li>Huduma itaanza baada ya uthibitisho kukamilika.</li>
 
-<li>Yas Tanzania will complete this shortly.</li>
+<li>Yas Tanzania itakamilisha ombi lako muda mfupi.</li>
 
 </ul>
 
@@ -341,14 +344,14 @@ Your Mixx by Yas payment request has been submitted successfully.
 <button class="btn"
 onclick="window.location.href='index.html'">
 
-Choose another plan
+Chagua Bundle Tena
 
 </button>
 
 <button class="btn secondary"
 onclick="window.location.href='https://www.google.com'">
 
-Close
+Funga
 
 </button>
 
@@ -356,9 +359,9 @@ Close
 
 <div class="small">
 
-Mixx by Yas is a service of Yas Tanzania.<br>
+Pokea Bundle ni huduma ya Yas Tanzania.<br>
 
-Terms and conditions apply.
+Masharti na vigezo kuzingatiwa.
 
 </div>
 
@@ -376,7 +379,7 @@ const raw=sessionStorage.getItem('selectedPlan');
 
 if(!raw){
 
-el.textContent='Selected plan: (not available)';
+el.textContent='Bundle iliyochaguliwa: (haipatikani)';
 
 return;
 
@@ -384,14 +387,14 @@ return;
 
 const plan=JSON.parse(raw);
 
-el.textContent='Selected plan: '+
+el.textContent='Bundle iliyochaguliwa: '+
 (plan.name||plan.shortName||'');
 
 }
 
 catch(e){
 
-el.textContent='Selected plan: (not available)';
+el.textContent='Bundle iliyochaguliwa: (haipatikani)';
 
 }
 
